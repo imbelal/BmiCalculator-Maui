@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls ="clr-namespace:BmiCalculator.Controls"
+             xmlns:local ="clr-namespace:BmiCalculator"
+             x:Class="BmiCalculator.MainPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="local:BmiViewModel">
+
+    <Grid RowDefinitions="*, Auto, Auto">
+        <Border Grid.Row="0"
+                Padding="20"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 0, 0, 0, 0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#ea6c5d" Offset="0.1"/>
+                    <GradientStop Color="#e95263" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <VerticalStackLayout Spacing="20">
+                <Label Text="GENDER"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"/>
+
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                    <controls:GenderControl Grid.Column="0" 
+                                            IconImageSource="male" 
+                                            Text="Male" 
+                                            Color="#e95263" 
+                                            BgColor="#ffffff"/>
+                    
+                    <controls:GenderControl Grid.Column="1" 
+                                            IconImageSource="female" 
+                                            Text="Female" 
+                                            Color="#ffffff" 
+                                            BgColor="#f2a59e"/>
+                </Grid>
+
+                <Label Text="HEIGHT"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       Margin="0, 20, 0, 0"/>
+                
+                <Border Grid.Column="1"
+                        BackgroundColor="#f2a59e"
+                        StrokeShape="RoundRectangle 25"
+                        Padding="20, 10"
+                        StrokeThickness="0"
+                        HorizontalOptions="Center">
+                    <Label Text="{Binding Source={x:Reference heighSlider}, 
+                                          Path=Value,
+                                          StringFormat='{0:F0} cm'}"
+                            HorizontalOptions="Center"
+                            FontAttributes="Bold"
+                            TextColor="White"/>
+
+                </Border>
+                
+                <Slider x:Name="heighSlider"
+                        ThumbColor="White"
+                        MinimumTrackColor="White"
+                        MaximumTrackColor="Black"
+                        Minimum="10"
+                        Maximum="350"
+                        Value="50"
+                        IsEnabled="{Binding IsNotCalculated}"/>
+
+                <Label Text="WEIGHT"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       Margin="0, 20, 0, 0"/>
+
+                <Border Grid.Column="1"
+                        BackgroundColor="#f2a59e"
+                        StrokeShape="RoundRectangle 25"
+                        Padding="20, 10"
+                        StrokeThickness="0"
+                        HorizontalOptions="Center">
+                    <Label Text="{Binding Source={x:Reference weightSlider}, 
+                                          Path=Value,
+                                          StringFormat='{0:F0} kg'}"
+                            HorizontalOptions="Center"
+                            FontAttributes="Bold"
+                            TextColor="White"/>
+
+                </Border>
+
+                <Slider x:Name="weightSlider"
+                        ThumbColor="White"
+                        MinimumTrackColor="White"
+                        MaximumTrackColor="Black"
+                        Minimum="1"
+                        Maximum="300"
+                        Value="50"
+                        IsEnabled="{Binding IsNotCalculated}"/>
+            </VerticalStackLayout>
+            
+        </Border>
+
+        <Grid Grid.Row="1"
+              Margin="0, -75, 0, 0">
+            <Border Grid.Row="1"
+                Padding="25"
+                StrokeShape="RoundRectangle 50, 50, 0, 0"
+                StrokeThickness="0"
+                BackgroundColor="white"
+                Margin="0, 0, 0, 0">
+            </Border>
+            
+            <controls:BmiButtonControl Grid.Column="1" 
+                        IconImageSource="arrow_right" 
+                        ButtonPressed="CalculateBMI_Pressed"
+                        IsVisible="{Binding IsNotCalculated}"/>
+            
+            <controls:BmiButtonControl Grid.Column="1" 
+                            IconImageSource="arrows_rotate" 
+                            ButtonPressed="ResetBmi_Pressed"
+                            IsVisible="{Binding IsCalcualted}"/>
+        </Grid>
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="25"
+                             Spacing="25"
+                             IsVisible="{Binding IsNotCalculated}">
+            <Label Text="BMI is used to determine whether you are in a healthy weight range for your height."/>
+            <Label Text="*The app shouldn't be used for pregnent women or children."
+                   FontSize="12"
+                   FontAttributes="Italic"
+                   TextColor="Red"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="25"
+                             Spacing="25"
+                             IsVisible="{Binding IsCalcualted}">
+            <Label Text="YOUR BMI"
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding Bmi}"
+                   FontSize="50"
+                   FontAttributes="Bold"
+                   TextColor="#e95263"/>
+            <Label Text="{Binding BmiStatus}"
+                   FontSize="16"
+                   TextColor="{Binding StatusColor}"/>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

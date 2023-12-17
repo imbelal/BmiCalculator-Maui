@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BmiCalculator.Controls.BmiButtonControl">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <ImageButton
+                Source="{TemplateBinding IconImageSource}"
+                HeightRequest="100"
+                WidthRequest="100"
+                CornerRadius="50"
+                BackgroundColor="White"
+                Padding="3"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="0, -50, 0, 0"
+                Pressed="Button_Pressed">
+                <ImageButton.Shadow>
+                    <Shadow Brush="#ea6c5d"
+                            Radius="40"
+                            Offset="5, 5"/>
+                </ImageButton.Shadow>
+                <ImageButton.Behaviors>
+                    <toolkit:IconTintColorBehavior TintColor="#e95263"/>
+                </ImageButton.Behaviors>
+            </ImageButton>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>
